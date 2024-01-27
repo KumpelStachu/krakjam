@@ -49,9 +49,9 @@ public class HandDetector : MonoBehaviour
         ToggleHandWarning(!goodHand);
         if (!goodHand) return;
 
-        var pairs = hand.Landmark.Select((v, i) => (i, v, _fingers[i])).ToArray();
+        var pairs = hand.Landmark.Select((v, i) => (i, v /*, _fingers[i]*/)).ToArray();
 
-        foreach (var (i, landmark, finger) in pairs)
+        foreach (var (i, landmark /*, finger*/) in pairs)
         {
             var point = LandmarkToWorldPoint(landmark);
 
@@ -59,17 +59,19 @@ public class HandDetector : MonoBehaviour
             // finger.position = Vector3.Lerp(finger.position, point /* *dist */, Time.deltaTime * 1000 * smoothingFactor);
             // finger.position = point * dist;
 
-            _lineRenderer.SetPosition(i, point);
+            var position = _lineRenderer.GetPosition(i);
+            var smoothed = Vector3.Lerp(position, point, Time.deltaTime * 1000 * smoothingFactor);
+            _lineRenderer.SetPosition(i, smoothed);
         }
     }
 
     private void ToggleHandVisibility(bool visible)
     {
-        if (_fingers[0].gameObject.activeSelf == visible) return;
+        // if (_fingers[0].gameObject.activeSelf == visible) return;
 
         _lineRenderer.enabled = visible;
-        foreach (var finger in _fingers)
-            finger.gameObject.SetActive(visible);
+        // foreach (var finger in _fingers)
+        //     finger.gameObject.SetActive(visible);
     }
 
     private void ToggleHandWarning(bool visible)
@@ -80,12 +82,12 @@ public class HandDetector : MonoBehaviour
 
     private void ProcessHands(List<NormalizedLandmarkList> hands)
     {
-        var doYouHaveHands = hands is { Count: > 0 };
+        var doYouHaveHand = hands is { Count: 1 };
 
-        ToggleHandVisibility(doYouHaveHands);
-        ToggleHandWarning(!doYouHaveHands);
+        ToggleHandVisibility(doYouHaveHand);
+        ToggleHandWarning(!doYouHaveHand);
 
-        if (!doYouHaveHands) return;
+        if (!doYouHaveHand) return;
 
         foreach (var hand in hands)
             ProcessHand(hand);
@@ -130,9 +132,9 @@ public class HandDetector : MonoBehaviour
 
         InitGraph();
 
-        _fingers = Enumerable.Range(0, HandSegments)
-            .Select(_ => Instantiate(fingerPrefab, transform).transform)
-            .ToArray();
+        // _fingers = Enumerable.Range(0, HandSegments)
+        //     .Select(_ => Instantiate(fingerPrefab, transform).transform)
+        //     .ToArray();
 
         while (_graph != null)
             yield return DetectHand();
