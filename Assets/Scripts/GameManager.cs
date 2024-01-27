@@ -8,8 +8,8 @@ public class GameManager : MonoBehaviour
 
     private void Start()
     {
-        StartCoroutine(nameof(weaponSpawner.Loop));
-        StartCoroutine(nameof(powerUpSpawner.Loop));
-        StartCoroutine(nameof(touchPointSpawner.Loop));
+        StartCoroutine(weaponSpawner.Loop());
+        StartCoroutine(powerUpSpawner.Loop());
+        StartCoroutine(touchPointSpawner.Loop());
     }
 }

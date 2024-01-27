@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Object = UnityEngine.Object;
-using Random = Unity.Mathematics.Random;
+using Random = UnityEngine.Random;
 
 [Serializable]
 public class Spawner
@@ -16,18 +16,21 @@ public class Spawner
 
     private bool _stopped;
 
-    private static T Random<T>(IReadOnlyList<T> list) => list[new Random().NextInt(list.Count)];
+    private static T RandomItem<T>(IReadOnlyList<T> list) => list[Random.Range(0, list.Count)];
 
     public void Stop() => _stopped = true;
 
-    public IEnumerable Loop()
+    public IEnumerator Loop()
     {
+        if (prefabs.Length == 0 || spawnPoints.Length == 0) yield break;
+
         yield return new WaitForSeconds(initialDelay);
 
         while (!_stopped)
         {
-            var spawnPoint = Random(spawnPoints);
-            Object.Instantiate(Random(prefabs), spawnPoint);
+            var spawnPoint = RandomItem(spawnPoints);
+            Object.Instantiate(RandomItem(prefabs), spawnPoint);
+
 
             yield return new WaitForSeconds(delay);
             delay *= delayMultiplier;

@@ -10,7 +10,7 @@ using Stopwatch = System.Diagnostics.Stopwatch;
 
 public class HandDetector : MonoBehaviour
 {
-    const int HandSegments = 21;
+    private const int HandSegments = 21;
 
     [SerializeField] private TextAsset configText;
     [SerializeField] private int width = 1280;
@@ -43,10 +43,10 @@ public class HandDetector : MonoBehaviour
         var center = LandmarkToWorldPoint(hand.Landmark[0]);
         var reference = LandmarkToWorldPoint(hand.Landmark[1]);
         var dist = Vector3.Distance(center, reference);
-        var goodHand = dist >= handMin && dist <= handMax;
+        // var goodHand = dist >= handMin && dist <= handMax;
 
-        ToggleHandWarning(!goodHand);
-        if (!goodHand) return;
+        // ToggleHandWarning(!goodHand);
+        // if (!goodHand) return;
 
         var pairs = hand.Landmark.Select((v, i) => (v, _fingers[i])).ToArray();
 
@@ -55,7 +55,8 @@ public class HandDetector : MonoBehaviour
             var point = LandmarkToWorldPoint(landmark);
 
             finger.up = center - point;
-            finger.position = point;
+            // finger.position = Vector3.Lerp(finger.position, point * (1 / dist), Time.deltaTime * 500);
+            finger.position = point * (1 / dist);
         }
     }
 
@@ -69,6 +70,7 @@ public class HandDetector : MonoBehaviour
 
     private void ToggleHandWarning(bool visible)
     {
+        Time.timeScale = visible ? 0 : 1;
         handWarning.SetActive(visible);
     }
 
@@ -127,7 +129,7 @@ public class HandDetector : MonoBehaviour
             .Select(_ => Instantiate(fingerPrefab, transform).transform)
             .ToArray();
 
-        while (true)
+        while (_graph != null)
             yield return DetectHand();
     }
 
