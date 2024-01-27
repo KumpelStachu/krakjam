@@ -17,7 +17,9 @@ public class HandDetector : MonoBehaviour
     [SerializeField] private int height = 720;
     [SerializeField] private int fps = 30;
     [SerializeField] private GameObject fingerPrefab;
-    [SerializeField] private Transform handCenter;
+    [SerializeField] private float handMin = 0.9f;
+    [SerializeField] private float handMax = 1.6f;
+    [SerializeField] private GameObject handWarning;
 
     private OutputStream<List<NormalizedLandmarkList>> _landmarksStream;
     private OutputStream<ImageFrame> _outputVideoStream;
@@ -33,38 +35,51 @@ public class HandDetector : MonoBehaviour
     private static Vector3 LandmarkToWorldPoint(NormalizedLandmark landmark)
     {
         var main = Camera.main!;
-        return main.ViewportToWorldPoint(new Vector3(landmark.X, landmark.Y, landmark.Z)) - main!.transform.position;
+        return main.ViewportToWorldPoint(new Vector3(landmark.X, landmark.Y, 0)) - main!.transform.position;
     }
 
     private void ProcessHand(NormalizedLandmarkList hand)
     {
-        var pairs = hand.Landmark.Select((v, i) => (v, _fingers[i])).ToArray();
-        var center = LandmarkToWorldPoint(pairs[0].v);
+        var center = LandmarkToWorldPoint(hand.Landmark[0]);
+        var reference = LandmarkToWorldPoint(hand.Landmark[1]);
+        var dist = Vector3.Distance(center, reference);
+        var goodHand = dist >= handMin && dist <= handMax;
 
-        transform.GetChild(0).position = center;
+        ToggleHandWarning(!goodHand);
+        if (!goodHand) return;
+
+        var pairs = hand.Landmark.Select((v, i) => (v, _fingers[i])).ToArray();
 
         foreach (var (landmark, finger) in pairs)
         {
             var point = LandmarkToWorldPoint(landmark);
 
             finger.up = center - point;
-            finger.position = point + finger.up * finger.localScale.y / 2;
+            finger.position = point;
         }
     }
 
     private void ToggleHandVisibility(bool visible)
     {
-        handCenter.gameObject.SetActive(visible);
+        if (_fingers[0].gameObject.activeSelf == visible) return;
+
         foreach (var finger in _fingers)
             finger.gameObject.SetActive(visible);
     }
 
+    private void ToggleHandWarning(bool visible)
+    {
+        handWarning.SetActive(visible);
+    }
+
     private void ProcessHands(List<NormalizedLandmarkList> hands)
     {
-        var doYouHaveHands = hands.Count > 0;
+        var doYouHaveHands = hands is { Count: > 0 };
 
         ToggleHandVisibility(doYouHaveHands);
+        ToggleHandWarning(!doYouHaveHands);
 
+        Debug.Log(doYouHaveHands);
         if (!doYouHaveHands) return;
 
         foreach (var hand in hands)
@@ -87,7 +102,6 @@ public class HandDetector : MonoBehaviour
 
         var handLandmarksPacket = task.Result.packet;
         var handLandmarks = handLandmarksPacket?.Get(NormalizedLandmarkList.Parser);
-        if (handLandmarks == null || handLandmarks.Count == 0) yield break;
 
         ProcessHands(handLandmarks);
     }

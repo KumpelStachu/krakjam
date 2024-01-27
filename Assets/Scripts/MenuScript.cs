@@ -3,14 +3,25 @@ using UnityEngine.SceneManagement;
 
 public class MenuScript : MonoBehaviour
 {
-    [SerializeField] private GameObject levelsPanel;
+    [SerializeField] private GameObject settingsPanel;
 
     private void Start()
     {
-        levelsPanel.SetActive(false);
+        settingsPanel.SetActive(false);
     }
 
-    public void ToggleLevelSelector() => levelsPanel.SetActive(!levelsPanel.activeSelf);
+    public void ToggleSettings()
+    {
+        settingsPanel.SetActive(!settingsPanel.activeSelf);
+    }
 
-    public void LoadLevel(string level) => SceneManager.LoadScene($"Level{level}");
+    public void Play()
+    {
+        SceneManager.LoadScene("GameScene");
+    }
+
+    public void Exit()
+    {
+        Application.Quit();
+    }
 }
