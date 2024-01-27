@@ -300,7 +300,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &636319807
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -316,6 +316,7 @@ MonoBehaviour:
   weaponSpawner:
     prefabs:
     - {fileID: 8476185370605581160, guid: de6ce97d272de40cf8ad02f3b381efbb, type: 3}
+    - {fileID: 8476185370605581160, guid: 31f4c4e81747b3848b3aca948bdd7539, type: 3}
     spawnPoints:
     - {fileID: 1704390271}
     - {fileID: 643937462}
