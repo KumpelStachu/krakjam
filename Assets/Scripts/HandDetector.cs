@@ -84,7 +84,7 @@ public class HandDetector : MonoBehaviour
             ProcessHand(hand);
     }
 
-    private long lastTime;
+    private long _lastTime;
 
     private IEnumerator DetectHand()
     {
@@ -105,9 +105,9 @@ public class HandDetector : MonoBehaviour
 
         ProcessHands(handLandmarks);
 
-        var elapsed = (currentTimestamp - lastTime) / 1000f;
+        var elapsed = (currentTimestamp - _lastTime) / 1000f;
         Debug.Log($"{elapsed}ms - {1000 / elapsed}fps");
-        lastTime = currentTimestamp;
+        _lastTime = currentTimestamp;
     }
 
     private IEnumerator Start()
@@ -141,6 +141,9 @@ public class HandDetector : MonoBehaviour
         _webCamTexture.Play();
 
         yield return new WaitUntil(() => _webCamTexture.width > 16);
+
+        width = _webCamTexture.width;
+        height = _webCamTexture.height;
     }
 
     private void InitGraph()
