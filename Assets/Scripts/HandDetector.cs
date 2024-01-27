@@ -60,7 +60,8 @@ public class HandDetector : MonoBehaviour
             _lineRenderer.SetPosition(i, smoothed);
         }
 
-        trigger.position = _lineRenderer.GetPosition(8);
+        trigger.position = _lineRenderer.GetPosition(7);
+        trigger.up = trigger.position - _lineRenderer.GetPosition(6);
     }
 
     private void ToggleHandVisibility(bool visible)
