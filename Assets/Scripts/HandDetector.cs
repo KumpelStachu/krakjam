@@ -21,13 +21,13 @@ public class HandDetector : MonoBehaviour
     [SerializeField] private float smoothingFactor = 0.5f;
     [SerializeField] private float handMinDistance = 0.5f;
 
-
     private OutputStream<List<NormalizedLandmarkList>> _landmarksStream;
     private OutputStream<ImageFrame> _outputVideoStream;
     private ResourceManager _resourceManager;
+    private LineRenderer _lineRenderer;
     private CalculatorGraph _graph;
-    private Stopwatch _stopwatch;
     private Transform[] _fingers;
+    private Stopwatch _stopwatch;
 
     private WebCamTexture _webCamTexture;
     private Texture2D _inputTexture;
@@ -49,15 +49,17 @@ public class HandDetector : MonoBehaviour
         ToggleHandWarning(!goodHand);
         if (!goodHand) return;
 
-        var pairs = hand.Landmark.Select((v, i) => (v, _fingers[i])).ToArray();
+        var pairs = hand.Landmark.Select((v, i) => (i, v, _fingers[i])).ToArray();
 
-        foreach (var (landmark, finger) in pairs)
+        foreach (var (i, landmark, finger) in pairs)
         {
             var point = LandmarkToWorldPoint(landmark);
 
-            finger.up = center - point;
-            finger.position = Vector3.Lerp(finger.position, point /* *dist */, Time.deltaTime * 1000 * smoothingFactor);
+            // finger.up = center - point;
+            // finger.position = Vector3.Lerp(finger.position, point /* *dist */, Time.deltaTime * 1000 * smoothingFactor);
             // finger.position = point * dist;
+
+            _lineRenderer.SetPosition(i, point);
         }
     }
 
@@ -65,6 +67,7 @@ public class HandDetector : MonoBehaviour
     {
         if (_fingers[0].gameObject.activeSelf == visible) return;
 
+        _lineRenderer.enabled = visible;
         foreach (var finger in _fingers)
             finger.gameObject.SetActive(visible);
     }
@@ -110,6 +113,8 @@ public class HandDetector : MonoBehaviour
 
     private IEnumerator Start()
     {
+        _lineRenderer = GetComponent<LineRenderer>();
+
         yield return InitWebCam();
 
         _resourceManager = new StreamingAssetsResourceManager();
