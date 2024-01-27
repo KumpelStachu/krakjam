@@ -1,12 +1,16 @@
 using UnityEngine;
 using UnityEngine.UI;
+using TMPro;
 
 public class GameManager : MonoBehaviour
 {
     [SerializeField] private Spawner[] spawners;
     [SerializeField] private Sprite[] hpSprites;
     [SerializeField] private Image hpImage;
+    [SerializeField] private TMP_Text pointsText;
     [SerializeField] private int health;
+
+    [SerializeField] private int points;
 
     private static GameManager _Instance;
 
@@ -37,5 +41,12 @@ public class GameManager : MonoBehaviour
             _Instance = GameObject.FindGameObjectWithTag("GameManager").GetComponent<GameManager>();
 
         return _Instance;
+    }
+    public void AddPoints(int amount)
+    {
+        points += amount;
+        pointsText.text = points.ToString();
+        pointsText.GetComponent<Animator>().Play("PointsAddPop");
+
     }
 }
