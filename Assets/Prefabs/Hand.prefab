@@ -50,9 +50,9 @@ MonoBehaviour:
   height: 720
   fps: 30
   fingerPrefab: {fileID: 3287380796727221873, guid: f7a3934f789f648188156b3ef7b08a8a, type: 3}
-  handMin: 0.9
-  handMax: 1.6
   handWarning: {fileID: 6177689760974013805}
+  smoothingFactor: 0.5
+  handMinDistance: 0.5
 --- !u!1 &4737081987708030894
 GameObject:
   m_ObjectHideFlags: 0

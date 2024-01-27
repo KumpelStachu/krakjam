@@ -17,9 +17,10 @@ public class HandDetector : MonoBehaviour
     [SerializeField] private int height = 720;
     [SerializeField] private int fps = 30;
     [SerializeField] private GameObject fingerPrefab;
-    [SerializeField] private float handMin = 0.9f;
-    [SerializeField] private float handMax = 1.6f;
     [SerializeField] private GameObject handWarning;
+    [SerializeField] private float smoothingFactor = 0.5f;
+    [SerializeField] private float handMinDistance = 0.5f;
+
 
     private OutputStream<List<NormalizedLandmarkList>> _landmarksStream;
     private OutputStream<ImageFrame> _outputVideoStream;
@@ -42,11 +43,11 @@ public class HandDetector : MonoBehaviour
     {
         var center = LandmarkToWorldPoint(hand.Landmark[0]);
         var reference = LandmarkToWorldPoint(hand.Landmark[1]);
-        var dist = Vector3.Distance(center, reference);
-        // var goodHand = dist >= handMin && dist <= handMax;
+        var dist = 1 / Vector3.Distance(center, reference);
+        var goodHand = dist >= handMinDistance;
 
-        // ToggleHandWarning(!goodHand);
-        // if (!goodHand) return;
+        ToggleHandWarning(!goodHand);
+        if (!goodHand) return;
 
         var pairs = hand.Landmark.Select((v, i) => (v, _fingers[i])).ToArray();
 
@@ -55,8 +56,8 @@ public class HandDetector : MonoBehaviour
             var point = LandmarkToWorldPoint(landmark);
 
             finger.up = center - point;
-            // finger.position = Vector3.Lerp(finger.position, point * (1 / dist), Time.deltaTime * 500);
-            finger.position = point * (1 / dist);
+            finger.position = Vector3.Lerp(finger.position, point /* *dist */, Time.deltaTime * 1000 * smoothingFactor);
+            // finger.position = point * dist;
         }
     }
 
@@ -81,7 +82,6 @@ public class HandDetector : MonoBehaviour
         ToggleHandVisibility(doYouHaveHands);
         ToggleHandWarning(!doYouHaveHands);
 
-        Debug.Log(doYouHaveHands);
         if (!doYouHaveHands) return;
 
         foreach (var hand in hands)
