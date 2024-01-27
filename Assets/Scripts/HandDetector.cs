@@ -16,7 +16,6 @@ public class HandDetector : MonoBehaviour
     [SerializeField] private int width = 1280;
     [SerializeField] private int height = 720;
     [SerializeField] private int fps = 30;
-    [SerializeField] private GameObject fingerPrefab;
     [SerializeField] private GameObject handWarning;
     [SerializeField] private float smoothingFactor = 0.5f;
     [SerializeField] private float handMinDistance = 0.5f;
@@ -49,15 +48,11 @@ public class HandDetector : MonoBehaviour
         ToggleHandWarning(!goodHand);
         if (!goodHand) return;
 
-        var pairs = hand.Landmark.Select((v, i) => (i, v /*, _fingers[i]*/)).ToArray();
+        var pairs = hand.Landmark.Select((v, i) => (i, v)).ToArray();
 
-        foreach (var (i, landmark /*, finger*/) in pairs)
+        foreach (var (i, landmark) in pairs)
         {
             var point = LandmarkToWorldPoint(landmark);
-
-            // finger.up = center - point;
-            // finger.position = Vector3.Lerp(finger.position, point /* *dist */, Time.deltaTime * 1000 * smoothingFactor);
-            // finger.position = point * dist;
 
             var position = _lineRenderer.GetPosition(i);
             var smoothed = Vector3.Lerp(position, point, Time.deltaTime * 1000 * smoothingFactor);
@@ -67,16 +62,12 @@ public class HandDetector : MonoBehaviour
 
     private void ToggleHandVisibility(bool visible)
     {
-        // if (_fingers[0].gameObject.activeSelf == visible) return;
-
         _lineRenderer.enabled = visible;
-        // foreach (var finger in _fingers)
-        //     finger.gameObject.SetActive(visible);
     }
 
     private void ToggleHandWarning(bool visible)
     {
-        Time.timeScale = visible ? 0 : 1;
+        Time.timeScale = visible ? 0.25f : 1;
         handWarning.SetActive(visible);
     }
 
@@ -92,6 +83,8 @@ public class HandDetector : MonoBehaviour
         foreach (var hand in hands)
             ProcessHand(hand);
     }
+
+    private long lastTime;
 
     private IEnumerator DetectHand()
     {
@@ -111,6 +104,10 @@ public class HandDetector : MonoBehaviour
         var handLandmarks = handLandmarksPacket?.Get(NormalizedLandmarkList.Parser);
 
         ProcessHands(handLandmarks);
+
+        var elapsed = (currentTimestamp - lastTime) / 1000f;
+        Debug.Log($"{elapsed}ms - {1000 / elapsed}fps");
+        lastTime = currentTimestamp;
     }
 
     private IEnumerator Start()
@@ -132,10 +129,6 @@ public class HandDetector : MonoBehaviour
 
         InitGraph();
 
-        // _fingers = Enumerable.Range(0, HandSegments)
-        //     .Select(_ => Instantiate(fingerPrefab, transform).transform)
-        //     .ToArray();
-
         while (_graph != null)
             yield return DetectHand();
     }
@@ -153,7 +146,7 @@ public class HandDetector : MonoBehaviour
     private void InitGraph()
     {
         var sidePacket = new PacketMap();
-        sidePacket.Emplace("num_hands", Packet.CreateInt(2));
+        sidePacket.Emplace("num_hands", Packet.CreateInt(1));
         sidePacket.Emplace("input_horizontally_flipped", Packet.CreateBool(true));
         sidePacket.Emplace("input_vertically_flipped", Packet.CreateBool(false));
         sidePacket.Emplace("input_rotation", Packet.CreateInt(0));
