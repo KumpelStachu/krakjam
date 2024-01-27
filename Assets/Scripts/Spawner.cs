@@ -29,8 +29,8 @@ public class Spawner
         while (!_stopped)
         {
             var spawnPoint = RandomItem(spawnPoints);
-            Object.Instantiate(RandomItem(prefabs), spawnPoint);
-
+            var weapon = Object.Instantiate(RandomItem(prefabs));
+            weapon.transform.position = spawnPoint.position;
 
             yield return new WaitForSeconds(delay);
             delay *= delayMultiplier;
