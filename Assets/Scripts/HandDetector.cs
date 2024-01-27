@@ -21,9 +21,10 @@ public class HandDetector : MonoBehaviour
     [SerializeField] private float smoothingFactor = 0.5f;
     [SerializeField] private float handMinDistance = 0.5f;
 
+    private static ResourceManager _ResourceManager;
+
     private OutputStream<List<NormalizedLandmarkList>> _landmarksStream;
     private OutputStream<ImageFrame> _outputVideoStream;
-    private ResourceManager _resourceManager;
     private LineRenderer _lineRenderer;
     private CalculatorGraph _graph;
     private Transform[] _fingers;
@@ -122,10 +123,10 @@ public class HandDetector : MonoBehaviour
 
         yield return InitWebCam();
 
-        _resourceManager = new StreamingAssetsResourceManager();
-        yield return _resourceManager.PrepareAssetAsync("hand_landmark_full.bytes");
-        yield return _resourceManager.PrepareAssetAsync("palm_detection_full.bytes");
-        yield return _resourceManager.PrepareAssetAsync("handedness.txt");
+        _ResourceManager ??= new StreamingAssetsResourceManager();
+        yield return _ResourceManager.PrepareAssetAsync("hand_landmark_full.bytes");
+        yield return _ResourceManager.PrepareAssetAsync("palm_detection_full.bytes");
+        yield return _ResourceManager.PrepareAssetAsync("handedness.txt");
 
         _inputTexture = new Texture2D(width, height, TextureFormat.RGBA32, false);
         _inputPixelData = new Color32[width * height];
