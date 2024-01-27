@@ -184,14 +184,6 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3776176689067517911, guid: f1759db3723e444888349eb9e9a04f18, type: 3}
-      propertyPath: width
-      value: 1280
-      objectReference: {fileID: 0}
-    - target: {fileID: 3776176689067517911, guid: f1759db3723e444888349eb9e9a04f18, type: 3}
-      propertyPath: height
-      value: 720
-      objectReference: {fileID: 0}
-    - target: {fileID: 3776176689067517911, guid: f1759db3723e444888349eb9e9a04f18, type: 3}
       propertyPath: smoothingFactor
       value: 0.8
       objectReference: {fileID: 0}
