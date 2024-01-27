@@ -4,6 +4,7 @@ using UnityEngine.SceneManagement;
 public class MenuScript : MonoBehaviour
 {
     [SerializeField] private GameObject settingsPanel;
+    [SerializeField] private Animator doorAnim;
 
     private void Start()
     {
@@ -22,6 +23,11 @@ public class MenuScript : MonoBehaviour
 
     public void Exit()
     {
-        Application.Quit();
+        Application.Quit();     
+    }
+
+    public void StartExit()
+    {
+        doorAnim.Play("ExitIcon"); //tu zmienic!
     }
 }

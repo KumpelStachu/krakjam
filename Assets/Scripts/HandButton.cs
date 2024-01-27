@@ -11,10 +11,6 @@ public class HandButton : MonoBehaviour
 
     private static bool IsPlayer(Collider2D c) => c.gameObject.CompareTag("Player");
 
-    public void Test()
-    {
-        Debug.Log("CLICKED");
-    }
 
     private void OnTriggerStay2D(Collider2D other)
     {
