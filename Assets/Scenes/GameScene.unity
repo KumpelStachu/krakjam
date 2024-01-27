@@ -358,6 +358,37 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &455999175
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 455999176}
+  m_Layer: 0
+  m_Name: CircleSpawner
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &455999176
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 455999175}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -0.37, y: -0.25, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 1
+  m_Children: []
+  m_Father: {fileID: 636319808}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &519420028
 GameObject:
   m_ObjectHideFlags: 0
@@ -630,7 +661,7 @@ GameObject:
   - component: {fileID: 636319807}
   m_Layer: 0
   m_Name: GameManager
-  m_TagString: Untagged
+  m_TagString: GameManager
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -647,27 +678,24 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 66b9d056300ae4110aee0f6a3c564313, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  weaponSpawner:
-    prefabs:
+  spawners:
+  - prefabs:
     - {fileID: 8476185370605581160, guid: de6ce97d272de40cf8ad02f3b381efbb, type: 3}
     - {fileID: 8476185370605581160, guid: 31f4c4e81747b3848b3aca948bdd7539, type: 3}
     spawnPoints:
     - {fileID: 1704390271}
     - {fileID: 643937462}
+    spawnRadius: {x: 0, y: 4}
     initialDelay: 5
-    delay: 20
+    delay: 5
     delayMultiplier: 0.99
-  powerUpSpawner:
-    prefabs: []
-    spawnPoints: []
-    initialDelay: 5
-    delay: 10
-    delayMultiplier: 0.99
-  touchPointSpawner:
-    prefabs: []
-    spawnPoints: []
-    initialDelay: 5
-    delay: 10
+  - prefabs:
+    - {fileID: 6130894322190212239, guid: 762d489feec2e4674bb80b1fa10c76dd, type: 3}
+    spawnPoints:
+    - {fileID: 455999176}
+    spawnRadius: {x: 8, y: 8}
+    initialDelay: 2
+    delay: 5
     delayMultiplier: 0.99
   hpSprites:
   - {fileID: 21300000, guid: 231dac476c905b1459b76223e0089d92, type: 3}
@@ -692,6 +720,7 @@ Transform:
   m_Children:
   - {fileID: 1704390271}
   - {fileID: 643937462}
+  - {fileID: 455999176}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &643937461
@@ -719,7 +748,7 @@ Transform:
   m_GameObject: {fileID: 643937461}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -10.5, y: 2, z: 0}
+  m_LocalPosition: {x: -10.5, y: 1, z: 0}
   m_LocalScale: {x: -0.7, y: 0.7, z: 0.7}
   m_ConstrainProportionsScale: 1
   m_Children: []
@@ -1312,7 +1341,7 @@ Transform:
   m_GameObject: {fileID: 1704390270}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 10.5, y: 2, z: 0}
+  m_LocalPosition: {x: 10.5, y: 1, z: 0}
   m_LocalScale: {x: 0.7, y: 0.7, z: 0.7}
   m_ConstrainProportionsScale: 1
   m_Children: []
@@ -1415,7 +1444,7 @@ Animator:
   m_Avatar: {fileID: 0}
   m_Controller: {fileID: 9100000, guid: 6724ec601d399784692e3bc5ec325c8c, type: 2}
   m_CullingMode: 0
-  m_UpdateMode: 0
+  m_UpdateMode: 2
   m_ApplyRootMotion: 0
   m_LinearVelocityBlending: 0
   m_StabilizeFeet: 0

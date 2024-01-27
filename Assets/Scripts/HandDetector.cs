@@ -17,6 +17,7 @@ public class HandDetector : MonoBehaviour
     [SerializeField] private int height = 720;
     [SerializeField] private int fps = 30;
     [SerializeField] private GameObject handWarning;
+    [SerializeField] private Transform trigger;
     [SerializeField] private float smoothingFactor = 0.5f;
     [SerializeField] private float handMinDistance = 0.5f;
 
@@ -58,25 +59,29 @@ public class HandDetector : MonoBehaviour
             var smoothed = Vector3.Lerp(position, point, Time.deltaTime * 1000 * smoothingFactor);
             _lineRenderer.SetPosition(i, smoothed);
         }
+
+        trigger.position = _lineRenderer.GetPosition(8);
     }
 
     private void ToggleHandVisibility(bool visible)
     {
         _lineRenderer.enabled = visible;
+        trigger.gameObject.SetActive(visible);
     }
 
     private void ToggleHandWarning(bool visible)
     {
-        Time.timeScale = visible ? 0.25f : 1;
+        Time.timeScale = visible ? 0 : 1;
         handWarning.SetActive(visible);
+        trigger.gameObject.SetActive(!visible);
     }
 
     private void ProcessHands(List<NormalizedLandmarkList> hands)
     {
         var doYouHaveHand = hands is { Count: 1 };
 
-        ToggleHandVisibility(doYouHaveHand);
         ToggleHandWarning(!doYouHaveHand);
+        ToggleHandVisibility(doYouHaveHand);
 
         if (!doYouHaveHand) return;
 
@@ -106,7 +111,7 @@ public class HandDetector : MonoBehaviour
         ProcessHands(handLandmarks);
 
         var elapsed = (currentTimestamp - _lastTime) / 1000f;
-        Debug.Log($"{elapsed}ms - {1000 / elapsed}fps");
+        // Debug.Log($"{elapsed}ms - {1000 / elapsed}fps");
         _lastTime = currentTimestamp;
     }
 
