@@ -75,7 +75,7 @@ LineRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 0}
+  - {fileID: 10306, guid: 0000000000000000f000000000000000, type: 0}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -138,19 +138,19 @@ LineRenderer:
       m_RotationOrder: 4
     colorGradient:
       serializedVersion: 2
-      key0: {r: 1, g: 1, b: 1, a: 1}
-      key1: {r: 1, g: 1, b: 1, a: 1}
-      key2: {r: 0, g: 0, b: 0, a: 0}
-      key3: {r: 0, g: 0, b: 0, a: 0}
-      key4: {r: 0, g: 0, b: 0, a: 0}
+      key0: {r: 0.8584906, g: 0.6519669, b: 0.6519669, a: 1}
+      key1: {r: 0.6792453, g: 0.3492346, b: 0.3492346, a: 1}
+      key2: {r: 0.509434, g: 0.252314, b: 0.252314, a: 0}
+      key3: {r: 0.735849, g: 0.35056958, b: 0.35056958, a: 0}
+      key4: {r: 0.85882354, g: 0.654902, b: 0.654902, a: 0}
       key5: {r: 0, g: 0, b: 0, a: 0}
       key6: {r: 0, g: 0, b: 0, a: 0}
       key7: {r: 0, g: 0, b: 0, a: 0}
       ctime0: 0
-      ctime1: 65535
-      ctime2: 0
-      ctime3: 0
-      ctime4: 0
+      ctime1: 9445
+      ctime2: 31804
+      ctime3: 54741
+      ctime4: 65535
       ctime5: 0
       ctime6: 0
       ctime7: 0
@@ -163,10 +163,10 @@ LineRenderer:
       atime6: 0
       atime7: 0
       m_Mode: 0
-      m_ColorSpace: -1
-      m_NumColorKeys: 2
+      m_ColorSpace: 0
+      m_NumColorKeys: 5
       m_NumAlphaKeys: 2
-    numCornerVertices: 0
+    numCornerVertices: 3
     numCapVertices: 0
     alignment: 0
     textureMode: 0
@@ -175,7 +175,7 @@ LineRenderer:
     generateLightingData: 0
   m_MaskInteraction: 0
   m_UseWorldSpace: 1
-  m_Loop: 0
+  m_Loop: 1
   m_ApplyActiveColorSpace: 1
 --- !u!1 &4737081987708030894
 GameObject:
