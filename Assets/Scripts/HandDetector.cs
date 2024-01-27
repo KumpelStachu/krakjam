@@ -7,8 +7,11 @@ using Mediapipe.Unity;
 using UnityEngine;
 using Stopwatch = System.Diagnostics.Stopwatch;
 
+
 public class HandDetector : MonoBehaviour
 {
+    const int HandSegments = 21;
+
     [SerializeField] private TextAsset configText;
     [SerializeField] private int width = 1280;
     [SerializeField] private int height = 720;
@@ -27,14 +30,18 @@ public class HandDetector : MonoBehaviour
     private Texture2D _inputTexture;
     private Color32[] _inputPixelData;
 
-    private static Vector3 LandmarkToWorldPoint(NormalizedLandmark landmark) =>
-        Camera.main!.ViewportToWorldPoint(new Vector3(landmark.X, landmark.Y, 1)); //landmark.Z
+    private static Vector3 LandmarkToWorldPoint(NormalizedLandmark landmark)
+    {
+        var main = Camera.main!;
+        return main.ViewportToWorldPoint(new Vector3(landmark.X, landmark.Y, landmark.Z)) - main!.transform.position;
+    }
 
     private void ProcessHand(NormalizedLandmarkList hand)
     {
-        var center = LandmarkToWorldPoint(hand.Landmark[0]);
-        var pairs = hand.Landmark.Where((_, i) => i != 0 && i % 4 == 0)
-            .Select((v, i) => (v, _fingers[i])).ToArray();
+        var pairs = hand.Landmark.Select((v, i) => (v, _fingers[i])).ToArray();
+        var center = LandmarkToWorldPoint(pairs[0].v);
+
+        transform.GetChild(0).position = center;
 
         foreach (var (landmark, finger) in pairs)
         {
@@ -43,8 +50,6 @@ public class HandDetector : MonoBehaviour
             finger.up = center - point;
             finger.position = point + finger.up * finger.localScale.y / 2;
         }
-
-        handCenter.position = center;
     }
 
     private void ToggleHandVisibility(bool visible)
@@ -104,7 +109,9 @@ public class HandDetector : MonoBehaviour
 
         InitGraph();
 
-        _fingers = Enumerable.Range(0, 5).Select((i) => Instantiate(fingerPrefab, transform).transform).ToArray();
+        _fingers = Enumerable.Range(0, HandSegments)
+            .Select(_ => Instantiate(fingerPrefab, transform).transform)
+            .ToArray();
 
         while (true)
             yield return DetectHand();
