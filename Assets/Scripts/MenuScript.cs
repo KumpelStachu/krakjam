@@ -21,7 +21,7 @@ public class MenuScript : MonoBehaviour
         playerFeather.GetComponent<SpriteRenderer>().enabled = true;
         GetComponent<SpriteRenderer>().enabled = false;
 
-
+        AudioManager.instance.Play("hahahands");
         transitionAnim.Play("TransitionAnim");
 
         yield return new WaitForSeconds(1);

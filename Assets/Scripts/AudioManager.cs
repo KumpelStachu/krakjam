@@ -9,6 +9,12 @@ public class AudioManager : MonoBehaviour
 
     private float _initialMusicVolume;
 
+    private static AudioManager _Instance;
+
+    public static AudioManager instance =>
+        _Instance ??= GameObject.FindGameObjectWithTag("AudioManager").GetComponent<AudioManager>();
+
+
     private void Awake()
     {
         _initialMusicVolume = music.volume;
@@ -24,6 +30,8 @@ public class AudioManager : MonoBehaviour
         }
 
         UpdateVolume();
+
+        DontDestroyOnLoad(gameObject);
     }
 
     public void Play(string soundName)

@@ -68,6 +68,8 @@ public class GameManager : MonoBehaviour
 
         if (Math.Abs(streak) >= 10)
         {
+            AudioManager.instance.Play(streak > 0 ? "hahaha" : "yyee");
+
             kingSize += streak / 10;
             streak = 0;
         }
@@ -89,12 +91,14 @@ public class GameManager : MonoBehaviour
     private void GameOver()
     {
         Time.timeScale = 0;
+        AudioManager.instance.Play("gameover");
         SceneManager.LoadScene("MenuScene");
     }
 
     private void Win()
     {
         Time.timeScale = 0;
+        AudioManager.instance.Play("hahahands");
         SceneManager.LoadScene("MenuScene");
     }
 }
