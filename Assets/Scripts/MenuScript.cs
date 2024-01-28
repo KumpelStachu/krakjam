@@ -4,7 +4,8 @@ using UnityEngine.SceneManagement;
 
 public class MenuScript : MonoBehaviour
 {
-    [SerializeField] private Animator doorAnimator;
+    [SerializeField] private Animator doorAnim;
+    [SerializeField] private Animator transitionAnim;
     [SerializeField] private GameObject playerFeather;
 
     private void Start()
@@ -20,7 +21,8 @@ public class MenuScript : MonoBehaviour
         playerFeather.GetComponent<SpriteRenderer>().enabled = true;
         GetComponent<SpriteRenderer>().enabled = false;
 
-        // TODO: transitionAnimator.Play();
+
+        transitionAnim.Play("TransitionAnim");
 
         yield return new WaitForSeconds(1);
 
@@ -34,6 +36,6 @@ public class MenuScript : MonoBehaviour
 
     public void StartExit()
     {
-        doorAnimator.Play("ExitIcon");
+        doorAnim.Play("ExitIcon");
     }
 }
