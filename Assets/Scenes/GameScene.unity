@@ -850,6 +850,8 @@ MonoBehaviour:
     delayMultiplier: 0.99
   - prefabs:
     - {fileID: 6130894322190212239, guid: 762d489feec2e4674bb80b1fa10c76dd, type: 3}
+    - {fileID: 6130894322190212239, guid: ffdb94c77c7a94f519fbc49439681b2b, type: 3}
+    - {fileID: 6130894322190212239, guid: 762d489feec2e4674bb80b1fa10c76dd, type: 3}
     spawnPoints:
     - {fileID: 455999176}
     spawnRadius: {x: 8, y: 8}
