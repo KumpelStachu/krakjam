@@ -13,6 +13,7 @@ public class Spawner
     [SerializeField] private Vector2 spawnRadius;
     [SerializeField] private float initialDelay = 5;
     [SerializeField] private float delay = 10;
+    [SerializeField] private float minDelay = 1;
     [SerializeField] private float delayMultiplier = 0.99f;
 
     private bool _stopped;
@@ -38,6 +39,7 @@ public class Spawner
 
             yield return new WaitForSeconds(delay);
             delay *= delayMultiplier;
+            if (delay < minDelay) delay = minDelay;
         }
     }
 }

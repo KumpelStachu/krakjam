@@ -988,17 +988,20 @@ MonoBehaviour:
     spawnRadius: {x: 0, y: 2}
     initialDelay: 5
     delay: 5
+    minDelay: 1
     delayMultiplier: 0.99
   - prefabs:
-    - {fileID: 6130894322190212239, guid: 762d489feec2e4674bb80b1fa10c76dd, type: 3}
     - {fileID: 6130894322190212239, guid: ffdb94c77c7a94f519fbc49439681b2b, type: 3}
+    - {fileID: 6130894322190212239, guid: 762d489feec2e4674bb80b1fa10c76dd, type: 3}
+    - {fileID: 6130894322190212239, guid: 762d489feec2e4674bb80b1fa10c76dd, type: 3}
     - {fileID: 6130894322190212239, guid: 762d489feec2e4674bb80b1fa10c76dd, type: 3}
     spawnPoints:
     - {fileID: 455999176}
     spawnRadius: {x: 8, y: 8}
     initialDelay: 3
-    delay: 3
-    delayMultiplier: 0.98
+    delay: 4
+    minDelay: 0.8
+    delayMultiplier: 0.985
   healthSprites:
   - {fileID: 21300000, guid: 3f109c65712288040a5a841bccd4bc99, type: 3}
   - {fileID: 21300000, guid: f206d0573ebf10741b64f570675b4eb7, type: 3}
@@ -1120,12 +1123,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0cd44c1031e13a943bb63640046fad76, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_UiScaleMode: 0
+  m_UiScaleMode: 1
   m_ReferencePixelsPerUnit: 100
   m_ScaleFactor: 1
-  m_ReferenceResolution: {x: 800, y: 600}
+  m_ReferenceResolution: {x: 1920, y: 1080}
   m_ScreenMatchMode: 0
-  m_MatchWidthOrHeight: 0
+  m_MatchWidthOrHeight: 0.5
   m_PhysicalUnit: 3
   m_FallbackScreenDPI: 96
   m_DefaultSpriteDPI: 96
@@ -2869,12 +2872,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0cd44c1031e13a943bb63640046fad76, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_UiScaleMode: 0
+  m_UiScaleMode: 1
   m_ReferencePixelsPerUnit: 100
   m_ScaleFactor: 1
-  m_ReferenceResolution: {x: 800, y: 600}
+  m_ReferenceResolution: {x: 1920, y: 1080}
   m_ScreenMatchMode: 0
-  m_MatchWidthOrHeight: 0
+  m_MatchWidthOrHeight: 0.5
   m_PhysicalUnit: 3
   m_FallbackScreenDPI: 96
   m_DefaultSpriteDPI: 96
@@ -2973,12 +2976,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0cd44c1031e13a943bb63640046fad76, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_UiScaleMode: 0
+  m_UiScaleMode: 1
   m_ReferencePixelsPerUnit: 100
   m_ScaleFactor: 1
-  m_ReferenceResolution: {x: 800, y: 600}
+  m_ReferenceResolution: {x: 1920, y: 1080}
   m_ScreenMatchMode: 0
-  m_MatchWidthOrHeight: 0
+  m_MatchWidthOrHeight: 0.5
   m_PhysicalUnit: 3
   m_FallbackScreenDPI: 96
   m_DefaultSpriteDPI: 96
@@ -3099,7 +3102,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -261.7, y: -91.34}
+  m_AnchoredPosition: {x: -261.7, y: -91.339966}
   m_SizeDelta: {x: 417, y: 200}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1487178034
