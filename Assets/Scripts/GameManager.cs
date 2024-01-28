@@ -24,13 +24,15 @@ public class GameManager : MonoBehaviour
 
     private static GameManager _Instance;
 
-    public static GameManager instance => Get();
+    public static GameManager instance =>
+        _Instance ??= GameObject.FindGameObjectWithTag("GameManager").GetComponent<GameManager>();
 
     private void Start()
     {
         foreach (var spawner in spawners)
             StartCoroutine(spawner.Loop());
 
+        _Instance = null;
         health = healthSprites.Length - 1;
     }
 
@@ -45,14 +47,6 @@ public class GameManager : MonoBehaviour
     {
         if (health > healthSprites.Length)
             health = healthSprites.Length;
-    }
-
-    public static GameManager Get()
-    {
-        if (_Instance == null)
-            _Instance = GameObject.FindGameObjectWithTag("GameManager").GetComponent<GameManager>();
-
-        return _Instance;
     }
 
     public void AddPoints(int amount)
@@ -71,7 +65,7 @@ public class GameManager : MonoBehaviour
 
         if (Math.Abs(streak) >= 10)
         {
-            AudioManager.instance.Play(streak > 0 ? "hahaha" : "yyee");
+            AudioManager.instance.Play(streak > 0 ? "hahaha" : "yegh");
 
             kingSize += streak / 10;
             streak = 0;
