@@ -13,6 +13,9 @@ public class GameManager : MonoBehaviour
     [SerializeField] private SpriteRenderer kingRenderer;
     [SerializeField] private Transform kingContainer;
     [SerializeField] private TMP_Text pointsText;
+    [SerializeField] private TMP_Text endPointsText;
+    [SerializeField] private GameObject gameOverCanvas;
+
 
     public int health;
     public int points;
@@ -92,7 +95,10 @@ public class GameManager : MonoBehaviour
     {
         Time.timeScale = 0;
         AudioManager.instance.Play("gameover");
-        SceneManager.LoadScene("MenuScene");
+        gameOverCanvas.SetActive(true);
+        endPointsText.text = points.ToString();
+        
+        //SceneManager.LoadScene("MenuScene");
     }
 
     private void Win()
