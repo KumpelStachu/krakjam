@@ -20,6 +20,7 @@ public class HandDetector : MonoBehaviour
     [SerializeField] private Transform trigger;
     [SerializeField] private float smoothingFactor = 0.5f;
     [SerializeField] private float handMinDistance = 0.5f;
+    [SerializeField] private int maxNoHandFrames = 10;
 
     private static ResourceManager _ResourceManager;
 
@@ -29,6 +30,7 @@ public class HandDetector : MonoBehaviour
     private CalculatorGraph _graph;
     private Transform[] _fingers;
     private Stopwatch _stopwatch;
+    private int _noHandFrames;
 
     private WebCamTexture _webCamTexture;
     private Texture2D _inputTexture;
@@ -82,10 +84,17 @@ public class HandDetector : MonoBehaviour
     {
         var doYouHaveHand = hands is { Count: 1 };
 
-        ToggleHandWarning(!doYouHaveHand);
+        if (doYouHaveHand || _noHandFrames >= maxNoHandFrames)
+            ToggleHandWarning(!doYouHaveHand);
         ToggleHandVisibility(doYouHaveHand);
 
-        if (!doYouHaveHand) return;
+        if (!doYouHaveHand)
+        {
+            _noHandFrames++;
+            return;
+        }
+
+        _noHandFrames = 0;
 
         foreach (var hand in hands)
             ProcessHand(hand);

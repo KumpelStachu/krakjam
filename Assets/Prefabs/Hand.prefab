@@ -56,6 +56,7 @@ MonoBehaviour:
   trigger: {fileID: 3635974673320823941}
   smoothingFactor: 0.5
   handMinDistance: 0.5
+  maxNoHandFrames: 10
 --- !u!120 &828664938750849042
 LineRenderer:
   serializedVersion: 2
