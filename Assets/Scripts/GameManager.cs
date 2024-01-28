@@ -15,6 +15,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] private TMP_Text pointsText;
     [SerializeField] private TMP_Text endPointsText;
     [SerializeField] private GameObject gameOverCanvas;
+    [SerializeField] private GameObject winCanvas;
 
 
     public int health;
@@ -99,6 +100,7 @@ public class GameManager : MonoBehaviour
     {
         Time.timeScale = 0;
         AudioManager.instance.Play("hahahands");
-        SceneManager.LoadScene("MenuScene");
+        winCanvas.SetActive(true);
+        //SceneManager.LoadScene("MenuScene");
     }
 }
