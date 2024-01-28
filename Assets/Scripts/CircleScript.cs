@@ -1,4 +1,3 @@
-using System;
 using System.Collections;
 using UnityEngine;
 
@@ -29,23 +28,15 @@ public class CircleScript : MonoBehaviour
 
     public IEnumerator Die()
     {
-        yield break;
         if (!_clicked) yield break;
 
-        var child = transform.GetChild(0);
-        var particle = child.GetComponent<ParticleSystem>();
-        // particle.playOnAwake = true;
-        // child.gameObject.SetActive(true);
-        particle.time = 0;
+        var trans = transform;
+        var child = trans.GetChild(0);
+        var magic = GameObject.Instantiate(child.gameObject, transform.position, Quaternion.identity);
+        var particle = magic.GetComponent<ParticleSystem>();
+        magic.GetComponent<PleaseKillMe>().enabled = true;
         particle.Play();
 
-        var trans = transform;
-        trans.DetachChildren();
-        trans.position = new Vector3(69, 69);
-
-        yield return new WaitForSecondsRealtime(1);
-
-        Destroy(child.gameObject);
         Destroy(gameObject);
     }
 }

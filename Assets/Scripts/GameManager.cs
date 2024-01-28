@@ -13,8 +13,8 @@ public class GameManager : MonoBehaviour
     [SerializeField] private SpriteRenderer kingRenderer;
     [SerializeField] private Transform kingContainer;
     [SerializeField] private TMP_Text pointsText;
-    [SerializeField] private int health;
 
+    public int health;
     public int points;
     public int streak;
     public int kingSize = 1;
@@ -76,16 +76,13 @@ public class GameManager : MonoBehaviour
             Win();
         else if (kingSize < 0)
             GameOver();
-        else
+        else if (kingContainer != null)
         {
             var delta = new Vector3(0, (kingSize - 1) * 0.03f);
-            kingRenderer.sprite = kingSprites[kingSize];
 
-            if (kingContainer != null)
-            {
-                kingContainer.localScale = Vector3.one + delta;
-                kingContainer.localPosition = delta * 6;
-            }
+            kingRenderer.sprite = kingSprites[kingSize];
+            kingContainer.localScale = Vector3.one + delta;
+            kingContainer.localPosition = delta * 6;
         }
     }
 

@@ -817,6 +817,10 @@ MonoBehaviour:
     trzymaniem jedzenia.  "
   - "Nie umiesz gra\u0107 w t\u0119 gr\u0119, bo twoje r\u0119ce s\u0105 za du\u017Ce,
     aby zmie\u015Bci\u0107 si\u0119 na ekranie. "
+  - "Nie umiesz gra\u0107 w t\u0119 gr\u0119, bo jeste\u015B zbyt zaj\u0119ty spaniem."
+  - "Nie umiesz gra\u0107 w t\u0119 gr\u0119, bo zawsze k\u0142adziesz si\u0119 na
+    klawiaturze."
+  - "Nie umiesz gra\u0107 w t\u0119 gr\u0119, bo zawsze \u0142apiesz myszk\u0119"
 --- !u!1 &6177689760974013805
 GameObject:
   m_ObjectHideFlags: 0
