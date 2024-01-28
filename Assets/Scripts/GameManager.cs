@@ -94,7 +94,6 @@ public class GameManager : MonoBehaviour
 
     private void GameOver()
     {
-        Time.timeScale = 0;
         AudioManager.instance.Play("gameover");
         gameOverCanvas.SetActive(true);
         endPointsText.text = points.ToString();
@@ -104,7 +103,6 @@ public class GameManager : MonoBehaviour
 
     private void Win()
     {
-        Time.timeScale = 0;
         AudioManager.instance.Play("hahahands");
         winCanvas.SetActive(true);
         foreach (var spawner in spawners)
