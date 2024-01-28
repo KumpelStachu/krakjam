@@ -1,33 +1,39 @@
+using System.Collections;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
 public class MenuScript : MonoBehaviour
 {
-    [SerializeField] private GameObject settingsPanel;
-    [SerializeField] private Animator doorAnim;
+    [SerializeField] private Animator doorAnimator;
+    [SerializeField] private GameObject playerFeather;
 
     private void Start()
     {
-        settingsPanel.SetActive(false);
+        Time.timeScale = 1;
+        playerFeather.GetComponent<SpriteRenderer>().enabled = false;
     }
 
-    public void ToggleSettings()
+    private IEnumerator OnTriggerEnter2D(Collider2D other)
     {
-        settingsPanel.SetActive(!settingsPanel.activeSelf);
-    }
+        if (!other.CompareTag("Player")) yield break;
 
-    public void Play()
-    {
+        playerFeather.GetComponent<SpriteRenderer>().enabled = true;
+        GetComponent<SpriteRenderer>().enabled = false;
+
+        // TODO: transitionAnimator.Play();
+
+        yield return new WaitForSeconds(1);
+
         SceneManager.LoadScene("GameScene");
     }
 
     public void Exit()
     {
-        Application.Quit();     
+        Application.Quit();
     }
 
     public void StartExit()
     {
-        doorAnim.Play("ExitIcon"); //tu zmienic!
+        doorAnimator.Play("ExitIcon");
     }
 }

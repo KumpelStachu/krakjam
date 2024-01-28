@@ -2,6 +2,7 @@ using System;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
@@ -70,15 +71,31 @@ public class GameManager : MonoBehaviour
         }
 
         if (kingSize >= kingSprites.Length)
-            Debug.Log("Win");
+            Win();
         else if (kingSize < 0)
-            Debug.Log("GameOver");
+            GameOver();
         else
         {
             var delta = new Vector3(0, (kingSize - 1) * 0.03f);
-            kingContainer.localScale = Vector3.one + delta;
-            kingContainer.localPosition = delta * 6;
             kingRenderer.sprite = kingSprites[kingSize];
+
+            if (kingContainer != null)
+            {
+                kingContainer.localScale = Vector3.one + delta;
+                kingContainer.localPosition = delta * 6;
+            }
         }
+    }
+
+    private void GameOver()
+    {
+        Time.timeScale = 0;
+        SceneManager.LoadScene("MenuScene");
+    }
+
+    private void Win()
+    {
+        Time.timeScale = 0;
+        SceneManager.LoadScene("MenuScene");
     }
 }
