@@ -30,5 +30,6 @@ public class HandButton : MonoBehaviour
 
         _timer = 0;
         _clicked = false;
+
     }
 }
