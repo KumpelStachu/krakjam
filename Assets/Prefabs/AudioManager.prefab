@@ -61,6 +61,11 @@ MonoBehaviour:
     volume: 1
     pitch: 1
     source: {fileID: 0}
+  - name: yegh
+    clip: {fileID: 8300000, guid: b683aa52b02a448cf8ddf445bde01b4b, type: 3}
+    volume: 0.516
+    pitch: 1
+    source: {fileID: 0}
   music: {fileID: 7840892372995573463}
 --- !u!82 &7840892372995573463
 AudioSource:

@@ -18,6 +18,7 @@ public class AudioManager : MonoBehaviour
     private void Awake()
     {
         _initialMusicVolume = music.volume;
+        _Instance = null;
 
         foreach (var s in sounds)
         {
@@ -30,8 +31,6 @@ public class AudioManager : MonoBehaviour
         }
 
         UpdateVolume();
-
-        DontDestroyOnLoad(gameObject);
     }
 
     public void Play(string soundName)
@@ -40,7 +39,7 @@ public class AudioManager : MonoBehaviour
         s.source.Play();
     }
 
-    public void UpdateVolume()
+    private void UpdateVolume()
     {
         music.volume = _initialMusicVolume * PlayerPrefs.GetFloat("music", 0.5f);
 
