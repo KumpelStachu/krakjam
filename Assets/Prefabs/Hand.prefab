@@ -667,6 +667,7 @@ GameObject:
   - component: {fileID: 1761240947926752317}
   - component: {fileID: 8576396373531417351}
   - component: {fileID: 8130012411381828389}
+  - component: {fileID: 8300331263162139791}
   m_Layer: 5
   m_Name: Text (TMP)
   m_TagString: Untagged
@@ -731,7 +732,7 @@ MonoBehaviour:
   m_fontColor32:
     serializedVersion: 2
     rgba: 4290230766
-  m_fontColor: {r: 0.9339623, g: 0.7239279, b: 0.71809363, a: 1}
+  m_fontColor: {r: 0.3490566, g: 0.13803601, b: 0.13007298, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
@@ -754,7 +755,7 @@ MonoBehaviour:
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
   m_fontSizeMax: 72
-  m_fontStyle: 1
+  m_fontStyle: 17
   m_HorizontalAlignment: 2
   m_VerticalAlignment: 512
   m_textAlignment: 65535
@@ -790,6 +791,32 @@ MonoBehaviour:
   m_hasFontAssetChanged: 0
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
+--- !u!114 &8300331263162139791
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5550245455150613516}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5dbf299d1c42b4a8ab6435903508171c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  text: {fileID: 8130012411381828389}
+  texts:
+  - "NIE POSIADASZ R\u0104K LUB \u0179LE ICH U\u017BYWASZ"
+  - "Nie umiesz gra\u0107 w t\u0119 gr\u0119, bo nie masz palc\xF3w."
+  - "Twoje r\u0119ce s\u0105 jak nogi, nie potrafi\u0105 si\u0119 prawid\u0142owo
+    porusza\u0107. "
+  - "Twoje r\u0119ce s\u0105 jak makaron, tak s\u0142abe i bezw\u0142adne."
+  - "Nie umiesz gra\u0107 w t\u0119 gr\u0119, bo jeste\u015B g\u0142upi. "
+  - "Nie umiesz gra\u0107 w t\u0119 gr\u0119, bo jeste\u015B \u015Blepy."
+  - "Nie umiesz gra\u0107 w t\u0119 gr\u0119, bo jeste\u015B \u015Bmiertelnie chory. "
+  - "Nie umiesz gra\u0107 w t\u0119 gr\u0119, bo twoje r\u0119ce s\u0105 zaj\u0119te
+    trzymaniem jedzenia.  "
+  - "Nie umiesz gra\u0107 w t\u0119 gr\u0119, bo twoje r\u0119ce s\u0105 za du\u017Ce,
+    aby zmie\u015Bci\u0107 si\u0119 na ekranie. "
 --- !u!1 &6177689760974013805
 GameObject:
   m_ObjectHideFlags: 0
@@ -851,7 +878,7 @@ Canvas:
   m_AdditionalShaderChannelsFlag: 25
   m_UpdateRectTransformForStandalone: 0
   m_SortingLayerID: 0
-  m_SortingOrder: 6
+  m_SortingOrder: 7
   m_TargetDisplay: 0
 --- !u!114 &3293105464339047908
 MonoBehaviour:

@@ -7,8 +7,8 @@ using UnityEngine.SceneManagement;
 public class GameManager : MonoBehaviour
 {
     [SerializeField] private Spawner[] spawners;
-    [SerializeField] private Sprite[] hpSprites;
-    [SerializeField] private Image hpImage;
+    [SerializeField] private Sprite[] healthSprites;
+    [SerializeField] private Image healthImage;
     [SerializeField] private Sprite[] kingSprites;
     [SerializeField] private SpriteRenderer kingRenderer;
     [SerializeField] private Transform kingContainer;
@@ -28,18 +28,20 @@ public class GameManager : MonoBehaviour
         foreach (var spawner in spawners)
             StartCoroutine(spawner.Loop());
 
-        health = hpSprites.Length - 1;
+        health = healthSprites.Length - 1;
     }
 
     private void Update()
     {
-        hpImage.sprite = hpSprites[health];
+        healthImage.sprite = healthSprites[health];
+        if (health == 0)
+            GameOver();
     }
 
     private void OnValidate()
     {
-        if (health > hpSprites.Length)
-            health = hpSprites.Length;
+        if (health > healthSprites.Length)
+            health = healthSprites.Length;
     }
 
     public static GameManager Get()
