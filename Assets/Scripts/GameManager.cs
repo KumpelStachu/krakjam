@@ -57,6 +57,12 @@ public class GameManager : MonoBehaviour
         pointsText.GetComponent<Animator>().Play("PointsAddPop");
     }
 
+    public void AddHealth(int amount)
+    {
+        health += amount;
+        healthImage.GetComponent<Animator>().Play("PointsAddPop");
+    }
+
     public void Streak(bool ok)
     {
         if (streak > 0)

@@ -7,6 +7,6 @@ public class WeaponScript : MonoBehaviour
         if (!other.CompareTag("Player")) return;
 
         GetComponent<Collider2D>().enabled = false;
-        GameManager.instance.health--;
+        GameManager.instance.AddHealth(-1);
     }
 }
