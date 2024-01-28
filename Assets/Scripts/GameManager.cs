@@ -98,8 +98,8 @@ public class GameManager : MonoBehaviour
         AudioManager.instance.Play("gameover");
         gameOverCanvas.SetActive(true);
         endPointsText.text = points.ToString();
-        
-        //SceneManager.LoadScene("MenuScene");
+        foreach (var spawner in spawners)
+            spawner.Stop();
     }
 
     private void Win()
@@ -107,6 +107,12 @@ public class GameManager : MonoBehaviour
         Time.timeScale = 0;
         AudioManager.instance.Play("hahahands");
         winCanvas.SetActive(true);
-        //SceneManager.LoadScene("MenuScene");
+        foreach (var spawner in spawners)
+            spawner.Stop();
+    }
+
+    public void Menu()
+    {
+        SceneManager.LoadScene("MenuScene");
     }
 }
