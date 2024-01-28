@@ -36,6 +36,7 @@ public class MenuScript : MonoBehaviour
 
     public void StartExit()
     {
+        Application.Quit();
         doorAnim.Play("ExitIcon");
     }
 }
